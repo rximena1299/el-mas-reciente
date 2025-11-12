@@ -1,0 +1,39 @@
+<div class="p-3">
+    <h6 class="text-muted">Menú</h6>
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'inicio_cocacola' %}">
+          <i class="bi bi-house"></i> Inicio
+        </a>
+      </li>
+  
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#clientesSub" role="button" aria-expanded="false">👥 Cliente</a>
+        <div class="collapse" id="clientesSub">
+          <ul class="list-unstyled ps-3">
+            <li><a href="{% url 'agregar_cliente' %}">Agregar Cliente</a></li>
+            <li><a href="{% url 'ver_cliente' %}">Ver Cliente</a></li>
+          </ul>
+        </div>
+      </li>
+  
+      <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#pedidosSub" role="button" aria-expanded="false">🧾 Pedidos</a>
+        <div class="collapse" id="pedidosSub">
+          <ul class="list-unstyled ps-3">
+            <li><a href="{% url 'agregar_pedido' %}">Agregar Pedido</a></li>
+            <li><a href="{% url 'ver_pedido' %}">Ver Pedidos</a></li>
+          </ul>
+        </div>
+      </li>
+  
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Productos</a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'agregar_producto' %}">Agregar Producto</a></li>
+          <li><a class="dropdown-item" href="{% url 'ver_producto' %}">Ver Productos</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  

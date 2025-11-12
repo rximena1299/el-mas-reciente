@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header">Agregar Cliente</div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row mb-2">
+        <div class="col"><input class="form-control" name="nombre" placeholder="Nombre" required></div>
+        <div class="col"><input class="form-control" name="apellido" placeholder="Apellido" required></div>
+      </div>
+      <div class="mb-2">
+        <input class="form-control" name="direccion" placeholder="Dirección" required>
+      </div>
+      <div class="row mb-2">
+        <div class="col"><input class="form-control" name="ciudad" placeholder="Ciudad"></div>
+        <div class="col"><input class="form-control" name="estado" placeholder="Estado"></div>
+        <div class="col"><input class="form-control" name="codigo_postal" placeholder="Código postal"></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col"><input class="form-control" name="telefono" placeholder="Teléfono" required></div>
+        <div class="col"><input class="form-control" name="email" placeholder="Email" required></div>
+      </div>
+      <div class="mb-2">
+        <input class="form-control" name="preferencia" placeholder="Preferencia">
+      </div>
+      <div class="mb-2">
+        <input class="form-control" type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento">
+      </div>
+      <button class="btn btn-primary" type="submit">Guardar Cliente</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

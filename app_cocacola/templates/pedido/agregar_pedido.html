@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card mt-4">
+  <div class="card-header">
+    <h5>Agregar Pedido</h5>
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <label>Cliente</label>
+          <select name="cliente" class="form-select" required>
+            <option value="">-- Seleccionar cliente --</option>
+            {% for c in clientes %}
+            <option value="{{ c.id }}">{{ c.nombre }} {{ c.apellido }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Número de Pedido (opcional)</label>
+          <input class="form-control" name="numero_pedido" placeholder="Dejar vacío para generar uno automático">
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-md-6">
+          <label>Fecha de Entrega</label>
+          <input type="date" name="fecha_entrega" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label>Dirección de Envío</label>
+          <input type="text" name="direccion_envio" class="form-control" placeholder="Dirección">
+        </div>
+      </div>
+
+      <div class="row mb-2">
+        <div class="col-md-4">
+          <label>Método de Pago</label>
+          <select name="metodo_pago" class="form-select" required>
+            <option value="efectivo">Efectivo</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Estado</label>
+          <select name="estado" class="form-select">
+            <option value="pendiente">Pendiente</option>
+            <option value="enviado">Enviado</option>
+            <option value="entregado">Entregado</option>
+            <option value="cancelado">Cancelado</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Gastos de Envío</label>
+          <input type="number" step="0.01" name="envio" class="form-control" value="0.00">
+        </div>
+      </div>
+
+      <hr>
+      <h6>Productos</h6>
+      <div id="items">
+        <!-- fila de producto template -->
+        <div class="row item-row mb-2">
+          <div class="col-md-7">
+            <select class="form-select" name="product[]" >
+              <option value="">-- Seleccionar producto --</option>
+              {% for p in productos %}
+                <option value="{{ p.id }}">{{ p.nombre_producto }} ({{ p.stock_actual }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <input type="number" name="cantidad[]" class="form-control" placeholder="Cantidad" min="1">
+          </div>
+          <div class="col-md-2">
+            <button type="button" class="btn btn-danger btn-remove">Quitar</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="add-item" class="btn btn-sm btn-outline-primary">Agregar otro producto</button>
+      <hr>
+
+      <div class="mb-3">
+        <label>Observaciones</label>
+        <textarea name="observaciones" class="form-control" rows="3"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-success">Guardar Pedido</button>
+      <a href="{% url 'ver_pedido' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</div>
+
+<script>
+document.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'add-item'){
+    const container = document.getElementById('items');
+    const first = container.querySelector('.item-row');
+    const clone = first.cloneNode(true);
+    // reset values
+    clone.querySelector('select').value = '';
+    clone.querySelector('input[name="cantidad[]"]').value = '';
+    container.appendChild(clone);
+  }
+  if(e.target && e.target.classList.contains('btn-remove')){
+    const row = e.target.closest('.item-row');
+    if(document.querySelectorAll('.item-row').length > 1){
+      row.remove();
+    } else {
+      // limpiar campos si es el único
+      row.querySelector('select').value = '';
+      row.querySelector('input[name="cantidad[]"]').value = '';
+    }
+  }
+});
+</script>
+{% endblock %}

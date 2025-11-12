@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header"><h5>Eliminar Pedido</h5></div>
+    <div class="card-body text-center">
+      <p>¿Deseas eliminar el pedido <strong>{{ pedido.numero_pedido }}</strong> de <strong>{{ pedido.cliente.nombre }} {{ pedido.cliente.apellido }}</strong>?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+        <a href="{% url 'ver_pedido' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <span>Lista de Clientes</span>
+    <a href="{% url 'agregar_cliente' %}" class="btn btn-sm btn-success">Agregar Cliente</a>
+  </div>
+  <div class="card-body table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Ciudad</th>
+          <th>Estado</th>
+          <th>Código Postal</th>
+          <th>Fecha de Registro</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for c in clientes %}
+        <tr>
+          <td>{{ c.id }}</td>
+          <td>{{ c.nombre }}</td>
+          <td>{{ c.apellido }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.telefono }}</td>
+          <td>{{ c.direccion }}</td>
+          <td>{{ c.ciudad }}</td>
+          <td>{{ c.estado }}</td>
+          <td>{{ c.codigo_postal }}</td>
+          <td>{{ c.fecha_registro|date:"Y-m-d H:i" }}</td>
+          <td>
+            <a class="btn btn-sm btn-primary" href="{% url 'actualizar_cliente' c.id %}">Editar</a>
+            <a class="btn btn-sm btn-danger" href="{% url 'borrar_cliente' c.id %}">Borrar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="11" class="text-center">No hay clientes registrados.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
